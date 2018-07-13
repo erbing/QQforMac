@@ -48,28 +48,28 @@ let msgArray = [
 // 当前所有群列表
 let allGroups = [
     {
-        groupName: '众安深圳屌丝群...',
+        groupName: 'VueJS 中文社区群',
         des: '村长：你是真的皮'
     },
     {
-        groupName: '中洲小分队..',
+        groupName: 'ReactJS 中文社区群',
         des: '船长：jio抬一下。。。'
     },
     {
-        groupName: '杏仁派前置开发群...',
+        groupName: 'AngularJS 中文社区群',
         des: 'focus：华哥快发红包...'
     },
     {
-        groupName: '沉迷加班(InsWelfare)',
-        des: '才哥：我是真球迷，你们都是伪球迷...'
+        groupName: '前端基础技术群',
+        des: '才哥：我是真球迷'
     },
     {
-        groupName: '众安深圳屌丝群...',
+        groupName: 'html5 技术群',
         des: '村长：你是真的皮'
     },
     {
-        groupName: '沉迷加班(InsWelfare)',
-        des: '一只粉刷匠：绝交，死胖子'
+        groupName: 'CSS3 技术群',
+        des: '一只粉刷匠'
     },
 ]
 
