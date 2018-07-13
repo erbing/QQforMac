@@ -81,8 +81,9 @@ let allRooms = {}
 
 // 监听 socket 连接
 io.on('connection', function(socket) {
+    console.log(socket)
     // 进入默认房间
-    // socket.join(curRoomId)
+    socket.join(curRoomId)
 
     // 触发 hello 事件
     // io.to(curRoomId).emit('hello', {

@@ -2,51 +2,28 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import io from 'socket.io-client';
+import params from '../utils/getParams'
 
-// var fs = require('fs')
 
-var socket = io('http://127.0.0.1:3000/')
+var socket = io('http://127.0.0.1:3000/',{curRoomId})
 
 import './index.less'
 const avators = require('./images/qq1.png')
 
-let allGroups = [
-    {
-        groupName: '众安深圳屌丝群...',
-        des: '村长：你是真的皮'
-    },
-    {
-        groupName: '中洲小分队..',
-        des: '船长：jio抬一下。。。'
-    },
-    {
-        groupName: '杏仁派前置开发群...',
-        des: 'focus：华哥快发红包...'
-    },
-    {
-        groupName: '沉迷加班(InsWelfare)',
-        des: '才哥：我是真球迷，你们都是伪球迷...'
-    },
-    {
-        groupName: '众安深圳屌丝群...',
-        des: '村长：你是真的皮'
-    },
-    {
-        groupName: '沉迷加班(InsWelfare)',
-        des: '一只粉刷匠：绝交，死胖子'
-    },
-]
+let allGroups = []  // 群组
+let curRoomId = params.getParam('id')
+console.log(curRoomId, 'x-x-x-x-')
 
 class Index extends React.Component {
     constructor() {
         super();
         this.state = {
-            curIndex: 0,
-            allGroups: [],
-            msgArray: [],
-            curMsg: '',
-            curUserId: '',
-            curRoomId: ''
+            curIndex: 0,    
+            allGroups: [],      // 所有的群组
+            msgArray: [],       // 当前群组内的  消息列表
+            curMsg: '',         // 当前消息
+            curUserId: '',      // 当前用户的 id
+            curRoomId: ''       // 当前房间号
         }
     }
     changeIndex = (index)=>{
