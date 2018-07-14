@@ -5,14 +5,16 @@ import io from 'socket.io-client';
 import params from '../utils/getParams'
 
 
-var socket = io('http://127.0.0.1:3000/',{curRoomId})
+var socket = io('http://127.0.0.1:3000/')
 
 import './index.less'
 const avators = require('./images/qq1.png')
 
+
 let allGroups = []  // 群组
-let curRoomId = params.getParam('id')
-console.log(curRoomId, 'x-x-x-x-')
+
+let curRoomId = params.getParam('id')   // 获取当前房间号
+
 
 class Index extends React.Component {
     constructor() {
@@ -33,7 +35,6 @@ class Index extends React.Component {
     }
 
     getMsg = (e) => {
-        console.log(e.target.value)
         let curMSGs = e.target.value
         this.setState({
             curMsg: curMSGs

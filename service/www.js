@@ -5,6 +5,12 @@ const https = require('https');
 const socket = require('socket.io')
 const fs = require('fs')
 
+const getParam = function(url) {
+    var resUrl = url.substr(url.indexOf('id')).split('=')[1]
+    // console.log(url,'xx')
+    return resUrl
+}
+
 const app = new koa()
 app.use(async ctx => {
     ctx.body = 'hello, worldx'
@@ -81,35 +87,34 @@ let allRooms = {}
 
 // 监听 socket 连接
 io.on('connection', function(socket) {
-    console.log(socket)
+    curRoomId = getParam(socket.handshake.headers.referer)
     // 进入默认房间
     socket.join(curRoomId)
 
+    // allUers.curUserId = socket.id
     // 触发 hello 事件
-    // io.to(curRoomId).emit('hello', {
-    //     curRoomId,
-    //     curUserId,
-    //     allGroups,
-    //     msgArray
-    // })
-    console.log(socket.id)
-    allUers.curUserId = socket.id
-    // curUserId = socket.id
-
-    socket.emit('hello', {
+    io.to(curRoomId).emit('hello', {
         curRoomId,
         curUserId: socket.id,
         allGroups,
         msgArray
     })
+    console.log(socket.id)
+    
+    // curUserId = socket.id
+
+    // socket.emit('hello', {
+    //     curRoomId,
+    //     curUserId: socket.id,
+    //     allGroups,
+    //     msgArray
+    // })
 
     
 
     socket.on('sendMsg', (data) => {
         console.log(data)
-        io.emit('msg',data)
-        // socket.broadcast.to(data.curRoomId).emit('msg',data.msg)
-        // io.emit('msg',data)
+        io.to(data.curRoomId).emit('msg',data)
     })
     
 
