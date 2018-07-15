@@ -24,7 +24,7 @@ class Index extends React.Component {
             allGroups: [],      // 所有的群组
             msgArray: [],       // 当前群组内的  消息列表
             curMsg: '',         // 当前消息
-            curUserId: '',      // 当前用户的 id
+            curUserId: {},      // 当前用户的 id
             curRoomId: ''       // 当前房间号
         }
     }
@@ -64,7 +64,7 @@ class Index extends React.Component {
             this.setState({
                 allGroups: data.allGroups,
                 msgArray: data.msgArray,
-                curUserId: data.curUserId,
+                curUserId: data.id,
                 curRoomId: data.curRoomId
             })
         })

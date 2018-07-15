@@ -85,20 +85,28 @@ let allUers = {}
 // 当前所有房间
 let allRooms = {}
 
+// 当前用户信息
+let curUser = {}
+
 // 监听 socket 连接
 io.on('connection', function(socket) {
     curRoomId = getParam(socket.handshake.headers.referer)
+
     // 进入默认房间
     socket.join(curRoomId)
 
-    // allUers.curUserId = socket.id
+    curUser.id = socket.id
+    curUser.curRoomId = curRoomId
+    curUser.allGroups = allGroups
+    curUser.msgArray = msgArray
+
+    allUers[socket.id] = curUser
+    //allUers[socket.id].curUserId = socket.id
+    
+
+
     // 触发 hello 事件
-    io.to(curRoomId).emit('hello', {
-        curRoomId,
-        curUserId: socket.id,
-        allGroups,
-        msgArray
-    })
+    io.to(curRoomId).emit('hello', curUser)
     console.log(socket.id)
     
     // curUserId = socket.id
