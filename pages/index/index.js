@@ -53,27 +53,31 @@ class Index extends React.Component {
                 msg: this.state.curMsg,
                 isSelf: true
             },
-            curUserId: this.state.curUserId,
+            curUserId: sessionStorage.getItem('QQ_SOCKET_ID'),
             curRoomId: this.state.curRoomId
         })
     }
 
     componentWillMount() {
+        let QQ_SOCKET_ID = sessionStorage.getItem('QQ_SOCKET_ID')
         socket.on('hello', (data) => {
             console.log(data,'hello')
             this.setState({
                 allGroups: data.allGroups,
                 msgArray: data.msgArray,
-                curUserId: data.id,
+                curUserId: QQ_SOCKET_ID  ? QQ_SOCKET_ID  : data.id,
                 curRoomId: data.curRoomId
             })
+            if(!QQ_SOCKET_ID ) {
+                sessionStorage.setItem('QQ_SOCKET_ID', data.id)
+            }
         })
 
         socket.on('msg', (data) => {
             console.log(data, 'msg')
             let newmsgArray = this.state.msgArray
             // debugger
-            if (this.state.curUserId == data.curUserId) {
+            if (QQ_SOCKET_ID == data.curUserId) {
                 data.msg.isSelf = true
             } else {
                 data.msg.isSelf = false

@@ -22,13 +22,13 @@ const server  = http.createServer(app.callback()).listen(3000)
 const io = socket(server)
 
 //设置当前用户id
-let curUserId = 1;
+var curUserId = 1;
 
 //设置当前 房间 id
-let curRoomId = 0+''
+var curRoomId = 0+''
 
 // 当前群的 对话消息列表
-let msgArray = [
+var msgArray = [
     {
         nick: '老村长',
         msg: '哈哈哈哈哈哈哈哈哈',
@@ -52,7 +52,7 @@ let msgArray = [
 ]
 
 // 当前所有群列表
-let allGroups = [
+var allGroups = [
     {
         groupName: 'VueJS 中文社区群',
         des: '村长：你是真的皮'
@@ -80,20 +80,19 @@ let allGroups = [
 ]
 
 // 当前所有用户列表
-let allUers = {}
+var allUers = {}
 
 // 当前所有房间
-let allRooms = {}
+var allRooms = {}
 
 // 当前用户信息
-let curUser = {}
+var curUser = {}
 
 // 监听 socket 连接
 io.on('connection', function(socket) {
     curRoomId = getParam(socket.handshake.headers.referer)
 
-    // 进入默认房间
-    socket.join(curRoomId)
+    
 
     curUser.id = socket.id
     curUser.curRoomId = curRoomId
@@ -104,10 +103,11 @@ io.on('connection', function(socket) {
     //allUers[socket.id].curUserId = socket.id
     
 
-
+    // 进入默认房间
+    socket.join(curRoomId)
     // 触发 hello 事件
     io.to(curRoomId).emit('hello', curUser)
-    console.log(socket.id)
+    console.log(socket.id + '加入房间' + curRoomId)
     
     // curUserId = socket.id
 
