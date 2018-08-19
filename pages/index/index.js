@@ -151,7 +151,7 @@ class Index extends React.Component {
                             Cancel
                             </Button>
                             <Button onClick={this.handleClose} color="primary">
-                            Subscribe
+                            确定
                             </Button>
                         </DialogActions>
                     </Dialog>
