@@ -1,5 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
+// 引用 antd 组件
+// import { Modal, Button } from 'antd'
+// import 'antd/dist/antd.less';
+
+// 引用 material ui
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 import io from 'socket.io-client';
 import params from '../utils/getParams'
@@ -11,23 +23,42 @@ import './index.less'
 const avators = require('./images/qq1.png')
 
 
+
 let allGroups = []  // 群组
 
 let curRoomId = params.getParam('id')   // 获取当前房间号
 
 
 class Index extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            curIndex: 0,    
-            allGroups: [],      // 所有的群组
-            msgArray: [],       // 当前群组内的  消息列表
-            curMsg: '',         // 当前消息
-            curUserId: {},      // 当前用户的 id
-            curRoomId: ''       // 当前房间号
-        }
+    // constructor() {
+    //     super();
+    //     this.state = {
+    //         curIndex: 0,    
+    //         allGroups: [],      // 所有的群组
+    //         msgArray: [],       // 当前群组内的  消息列表
+    //         curMsg: '',         // 当前消息
+    //         curUserId: {},      // 当前用户的 id
+    //         curRoomId: ''       // 当前房间号
+    //     }
+    // }
+    state = {
+        curIndex: 0,    
+        allGroups: [],      // 所有的群组
+        msgArray: [],       // 当前群组内的  消息列表
+        curMsg: '',         // 当前消息
+        curUserId: {},      // 当前用户的 id
+        curRoomId: '',       // 当前房间号
+        open: true,      // 进来的时候 填写姓名的 弹框
+        fullScreen: false
     }
+    handleOpen = () => {
+        this.setState({ open: true });
+    }
+    
+    handleClose = () => {
+        this.setState({ open: false });
+    }
+
     changeIndex = (index)=>{
         this.setState({
             curIndex: index
@@ -95,6 +126,35 @@ class Index extends React.Component {
         return (
             <div>
                 <div className="main">
+                    {/* <Button variant="contained" color="primary"> </Button> */}
+                    <Dialog
+                        open={this.state.open}
+                        onClose={this.handleClose}
+                        aria-labelledby="form-dialog-title"
+                        >
+                        <DialogTitle id="form-dialog-title">请输入您的昵称</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText>
+                            昵称就是网名的意思，你还记得你的第一个网名么？
+                            </DialogContentText>
+                            <TextField
+                            autoFocus
+                            margin="dense"
+                            id="name"
+                            label="正在输入中..."
+                            type="email"
+                            fullWidth
+                            />
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={this.handleClose} color="primary">
+                            Cancel
+                            </Button>
+                            <Button onClick={this.handleClose} color="primary">
+                            Subscribe
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
                     <div className="header">
                         <div className="header-left flex-y">
                             <div className="dots">
